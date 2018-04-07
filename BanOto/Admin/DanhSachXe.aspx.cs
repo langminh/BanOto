@@ -1,4 +1,5 @@
 ﻿using BanOto.Entity;
+using BanOto.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,22 @@ namespace BanOto.Admin
         {
             if (!Page.IsPostBack)
             {
-                load();
+                var session = Session[CommonContanst.USER_SESSION] as UserLogin;
+                if (session != null)
+                {
+                    if (session.Role == 1)
+                    {
+                        load();
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+                    Response.Redirect("Login.aspx");
+                }
             }
         }
 
@@ -28,10 +44,11 @@ namespace BanOto.Admin
 
         protected void listCars_ItemCommand(object sender, ListViewCommandEventArgs e)
         {
-            if(e.CommandName == "UpdateItem")
+            if (e.CommandName == "UpdateItem")
             {
                 Response.Redirect("QuanLyXe.aspx?id=" + e.CommandArgument.ToString());
-            }else if(e.CommandName == "DeleteItem")
+            }
+            else if (e.CommandName == "DeleteItem")
             {
                 string CarID = e.CommandArgument.ToString();
                 txtCarID_Delete.Value = db.Xes.Find(CarID).MaXe;

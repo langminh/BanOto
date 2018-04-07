@@ -16,7 +16,8 @@
                 <asp:TextBox runat="server" ID="txtMaTT" CssClass="form-control" Enabled="false" Width="200px"></asp:TextBox>
                 Tên Loại hình thức thanh toán
     <asp:TextBox runat="server" ID="txtTenTT" CssClass="form-control" Width="200px"></asp:TextBox>
-
+                Chiết khấu(%)
+                <asp:TextBox runat="server" TextMode="Number" min="0" step="1" ID="txtChietKhau" CssClass="form-control" Width="200px"></asp:TextBox>
                 <br />
 
                 <asp:Button runat="server" ID="btnThem" Text="Thêm" CssClass="btn btn-primary" OnClick="btnThem_Click" />
@@ -33,6 +34,7 @@
                         <Columns>
                             <asp:BoundField DataField="MaTT" Visible="true" HeaderText="Mã loại hình thức thanh toán" />
                             <asp:BoundField DataField="TenTT" HeaderText="Hình thức thanh toán" HtmlEncode="false" />
+                            <asp:BoundField DataField="ChietKhau" HeaderText="Chiết khấu(%)" HtmlEncode="false" />
                             <asp:CommandField SelectText="Chọn" ShowSelectButton="True" />
                         </Columns>
                         <EditRowStyle BackColor="#999999" />

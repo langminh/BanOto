@@ -118,7 +118,7 @@
                                         <td><%# Eval("HoTen") %></td>
                                         <td><%# Eval("SoLuong") %></td>
                                         <td><%# Eval("ThoiGian") %></td>
-                                        <td><span class="label"><%# Eval("TrangThai") %></span></td>
+                                        <td><%# Eval("TrangThai") %></td>
                                     </tr>
                                 </ItemTemplate>
                             </asp:ListView>

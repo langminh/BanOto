@@ -1,4 +1,5 @@
 ﻿using BanOto.Entity;
+using BanOto.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,22 @@ namespace BanOto.Admin
         {
             if (!Page.IsPostBack)
             {
-                load();
+                var session = Session[CommonContanst.USER_SESSION] as UserLogin;
+                if (session != null)
+                {
+                    if (session.Role == 1)
+                    {
+                        load();
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+                    Response.Redirect("Login.aspx");
+                }
             }
         }
         void load()
@@ -39,6 +55,7 @@ namespace BanOto.Admin
                 {
                     Entity.VanChuyen th = new Entity.VanChuyen();
                     th.TenVC = txtTenVC.Text;
+                    th.PhiVC = float.Parse(txtPhi.Text);
                     db.VanChuyens.Add(th);
                     db.SaveChanges();
                     load();
@@ -68,6 +85,7 @@ namespace BanOto.Admin
                 {
                     Entity.VanChuyen th = db.VanChuyens.Find(int.Parse(txtMaVC.Text.ToString()));
                     th.TenVC = txtTenVC.Text;
+                    th.PhiVC = float.Parse(txtPhi.Text);
                     db.SaveChanges();
                     load();
                     reset();

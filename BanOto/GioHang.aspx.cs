@@ -26,7 +26,7 @@ namespace BanOto
                 ListCart.DataSource = items;
                 ListCart.DataBind();
             }
-            drVC.SelectedIndex = 0;
+            drVC_SelectedIndexChanged(sender, e);
         }
 
         void TakeData()
@@ -147,7 +147,7 @@ namespace BanOto
 
             drVC.DataSource = db.VanChuyens.ToList();
             drVC.DataBind();
-            
+            drVC.SelectedIndex = 0;
 
             listNewCars.DataSource = db.Xes.OrderBy(x => x.TimeCreate).Take(4).ToList();
             listNewCars.DataBind();
@@ -212,6 +212,12 @@ namespace BanOto
                     lbTong.Text = String.Format("{0:n0}", tien) + "VNĐ";
                 }
             }
+        }
+
+        protected void btnThanhToan_Click(object sender, EventArgs e)
+        {
+            Session[CommonContanst.PHI_VC] = drVC.SelectedValue.ToString();
+            Response.Redirect("ThanhToan.aspx");
         }
     }
 }

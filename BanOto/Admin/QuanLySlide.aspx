@@ -45,7 +45,7 @@
                                 <asp:Button runat="server" ID="btnUpload" Text="Tải ảnh lên" OnClick="btnUpload_Click" CssClass="btn btn-primary" />
                             </div>
                              <div class="col-sm-4 cls">
-                                <asp:Button runat="server" ID="btnSua" Text="Trở lại" CssClass="btn btn-primary" OnClick="btnSua_Click" />
+                                <asp:Button runat="server" ID="btnSua" Text="Sửa" CssClass="btn btn-primary" OnClick="btnSua_Click" />
                             </div>
                             <div class="col-sm-4 cls">
                                 <asp:Button runat="server" ID="btnBack" Text="Trở lại" CssClass="btn btn-danger" OnClick="btnBack_Click" />

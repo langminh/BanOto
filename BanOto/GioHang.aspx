@@ -143,7 +143,7 @@
                                         </tr>
                                     </ItemTemplate>
                                 </asp:ListView>
-                                <% if (items.Count > 0)
+                                <% if (items != null && items.Count > 0)
                                     { %>
 
                                 <div class="cart_totals ">
@@ -158,7 +158,8 @@
                                             </tr>
                                             <tr>
                                                 <td>Phí vận chuyển</td>
-                                                <td><asp:Label runat="server" ID="lbPhi"></asp:Label></td>
+                                                <td>
+                                                    <asp:Label runat="server" ID="lbPhi"></asp:Label></td>
                                             </tr>
                                             <tr class="order-total">
                                                 <th>Tổng đơn hàng</th>
@@ -175,7 +176,7 @@
                                             <label for="coupon_code">Thay đổi số lượng:</label>
                                             <asp:TextBox runat="server" TextMode="Number" placeholder="Số lượng" min="1" step="1" title="Thay đổi số lượng mua" value="" ID="txtCoupon_code" CssClass="input-text" name="coupon_code"></asp:TextBox>
                                             <asp:Button runat="server" Text="Cập nhật" ID="btnUpdate" name="update_cart" OnClick="btnUpdate_Click" class="button" />
-                                            <asp:Button runat="server" ID="btnThanhToan" Text="Thanh Toán" name="proceed" CssClass=" button alt wc-forward btn-success" />
+                                            <asp:Button runat="server" ID="btnThanhToan" Text="Thanh Toán" OnClick="btnThanhToan_Click" name="proceed" CssClass=" button alt wc-forward btn-success" />
                                         </div>
                                     </div>
                                 </div>
@@ -183,6 +184,11 @@
                                     else
                                     {%>
                                 <div class="text-center">
+                                    <p>
+                                        Không có sản phẩm nào trong giỏ hàng của bạn. Hãy tiếp tục tìm kiếm chiếc xe 
+                            bạn yêu thích, hoặc <a href="TrangChu.aspx">&nbsp;Bấm vào đây</a>&nbsp;để quay lại <a href="TrangChu.aspx">trang
+                            chủ</a>
+                                    </p>
                                     <a href="Xe.aspx" class="btn btn-primary">Tiếp tục mua hàng</a>
                                 </div>
                                 <%} %>

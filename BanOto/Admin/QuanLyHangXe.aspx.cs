@@ -1,4 +1,5 @@
 ﻿using BanOto.Entity;
+using BanOto.Helper;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +18,22 @@ namespace BanOto.Admin
         {
             if (!Page.IsPostBack)
             {
-                load();
+                var session = Session[CommonContanst.USER_SESSION] as UserLogin;
+                if (session != null)
+                {
+                    if (session.Role == 1)
+                    {
+                        load();
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+                    Response.Redirect("Login.aspx");
+                }
             }
         }
         void load()

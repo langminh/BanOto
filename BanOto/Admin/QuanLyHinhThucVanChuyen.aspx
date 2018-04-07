@@ -16,7 +16,8 @@
                 <asp:TextBox runat="server" ID="txtMaVC" CssClass="form-control" Enabled="false" Width="200px"></asp:TextBox>
                 Tên Loại hình thức vận chuyển
     <asp:TextBox runat="server" ID="txtTenVC" CssClass="form-control" Width="200px"></asp:TextBox>
-
+                Phí vận chuyển(%)
+                <asp:TextBox runat="server" TextMode="Number" min="0" step="1" ID="txtPhi" CssClass="form-control" Width="200px"></asp:TextBox>
                 <br />
 
                 <asp:Button runat="server" ID="btnThem" Text="Thêm" CssClass="btn btn-primary" OnClick="btnThem_Click" />
@@ -33,6 +34,7 @@
                         <Columns>
                             <asp:BoundField DataField="MaVC" Visible="true" HeaderText="Mã loại hình thức thanh toán" />
                             <asp:BoundField DataField="TenVC" HeaderText="Hình thức thanh toán" HtmlEncode="false" />
+                            <asp:BoundField DataField="PhiVC" HeaderText="Phí vận chuyển" HtmlEncode="false" />
                             <asp:CommandField SelectText="Chọn" ShowSelectButton="True" />
                         </Columns>
                         <EditRowStyle BackColor="#999999" />

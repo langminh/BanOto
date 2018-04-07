@@ -28,11 +28,15 @@ namespace BanOto
                 items = Session[CommonContanst.CART_SESSION] as List<Hang>;
                 lbCount.InnerHtml = items.Count + "";
             }
+            else
+            {
+                lbCount.InnerHtml = "0";
+            }
         }
 
         void load()
         {
-            lbCount.InnerHtml = "2";
+            
             if (Session[CommonContanst.USER_SESSION] != null)
             {
                 var session = Session[CommonContanst.USER_SESSION] as UserLogin;

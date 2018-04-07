@@ -20,6 +20,9 @@ namespace BanOto
         }
         void load()
         {
+            ListSlide.DataSource = db.Slides.Take(4).OrderByDescending(x => x.CreateTime).ToList();
+            ListSlide.DataBind();
+
             listCars.DataSource = db.Xes.OrderByDescending(x => x.TimeCreate).Take(8).ToList();
             listCars.DataBind();
 

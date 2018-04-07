@@ -1027,6 +1027,7 @@
     <Content Include="Asset\Client\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Asset\Client\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Asset\Client\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="DatHangThanhCong.aspx" />
     <Content Include="Entity\DataEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DataEntities.edmx</DependentUpon>
@@ -1061,6 +1062,8 @@
     <Content Include="Images\Cars\pic5.jpg" />
     <Content Include="Images\Cars\pic6.jpg" />
     <Content Include="Images\Cars\pic8.jpg" />
+    <Content Include="Images\favicon.png" />
+    <Content Include="Images\logo.png" />
     <Content Include="Images\logo\audi.jpg" />
     <Content Include="Images\logo\bmw.png" />
     <Content Include="Images\logo\chevrolet.jpg" />
@@ -1394,6 +1397,13 @@
       <DependentUpon>Client.Master</DependentUpon>
     </Compile>
     <Compile Include="Data\DAL\DAL.cs" />
+    <Compile Include="DatHangThanhCong.aspx.cs">
+      <DependentUpon>DatHangThanhCong.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DatHangThanhCong.aspx.designer.cs">
+      <DependentUpon>DatHangThanhCong.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Entity\Anh.cs">
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>

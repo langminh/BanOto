@@ -1,4 +1,5 @@
 ﻿using BanOto.Entity;
+using BanOto.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,22 @@ namespace BanOto.Admin
         {
             if (!Page.IsPostBack)
             {
-                load();
+                var session = Session[CommonContanst.USER_SESSION] as UserLogin;
+                if (session != null)
+                {
+                    if (session.Role == 1)
+                    {
+                        load();
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+                    Response.Redirect("Login.aspx");
+                }
             }
         }
         void load()
@@ -39,6 +55,7 @@ namespace BanOto.Admin
                 {
                     Entity.ThanhToan th = new Entity.ThanhToan();
                     th.TenTT = txtTenTT.Text;
+                    th.ChietKhau = float.Parse(txtChietKhau.Text);
                     db.ThanhToans.Add(th);
                     db.SaveChanges();
                     load();
@@ -99,6 +116,7 @@ namespace BanOto.Admin
 
             txtMaTT.Text = row.Cells[0].Text;
             txtTenTT.Text = row.Cells[1].Text;
+            txtChietKhau.Text = row.Cells[2].Text;
         }
 
         protected void btnSua_1_Click(object sender, EventArgs e)
@@ -109,6 +127,7 @@ namespace BanOto.Admin
                 {
                     Entity.ThanhToan th = db.ThanhToans.Find(int.Parse(txtMaTT.Text.ToString()));
                     th.TenTT = txtTenTT.Text;
+                    th.ChietKhau = float.Parse(txtChietKhau.Text);
                     db.SaveChanges();
                     load();
                     reset();

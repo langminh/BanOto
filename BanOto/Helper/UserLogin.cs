@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using BanOto.Entity;
+using System.Web.SessionState;
 namespace BanOto.Helper
 {
     public class UserLogin
@@ -29,6 +30,13 @@ namespace BanOto.Helper
             get
             {
                 return "USER_SESSION";
+            }
+        }
+        public static string PHI_VC
+        {
+            get
+            {
+                return "phivc";
             }
         }
         public static string CART_SESSION

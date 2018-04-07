@@ -1,4 +1,5 @@
 ﻿using BanOto.Entity;
+using BanOto.Helper;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -19,8 +20,24 @@ namespace BanOto.Admin
         {
             if (!Page.IsPostBack)
             {
-                load();
-                SetValue();
+                var session = Session[CommonContanst.USER_SESSION] as UserLogin;
+                if (session != null)
+                {
+                    if (session.Role == 1)
+                    {
+                        load();
+                        SetValue();
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+                    Response.Redirect("Login.aspx");
+                }
+
             }
         }
 
@@ -79,7 +96,7 @@ namespace BanOto.Admin
                         txtSL.Text = xe.SoLuong + "";
                         txtTreoS.Text = xe.HeThongTreoSau;
                         txtTreoT.Text = xe.HeThongTreoTruoc;
-                        txtNamSX.Text = xe.NamSX+"";
+                        txtNamSX.Text = xe.NamSX + "";
                         if (xe.MaTH != null)
                             drHang.SelectedValue = drHang.Items.FindByValue(xe.MaTH.Value.ToString()).Value;
                         if (xe.MaXX != null)
@@ -210,7 +227,8 @@ namespace BanOto.Admin
                 db.SaveChanges();
                 Response.Redirect("DanhSachXe.aspx");
             }
-            catch(Exception ex) {
+            catch (Exception ex)
+            {
                 lbThongBao.Text = "Đã xảy ra lỗi. Vui lòng thử lại sau.";
                 lbThongBao.ForeColor = Color.Red;
             }

@@ -11,6 +11,7 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using BanOto.Entity.Dao;
+using BanOto.Helper;
 
 namespace BanHangDienTu.Admin
 {
@@ -23,7 +24,23 @@ namespace BanHangDienTu.Admin
         {
             if (!Page.IsPostBack)
             {
-                FillData();
+                var session = Session[CommonContanst.USER_SESSION] as UserLogin;
+                if (session != null)
+                {
+                    if (session.Role == 1)
+                    {
+                        FillData();
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+                    Response.Redirect("Login.aspx");
+                }
+                
             }
         }
 
@@ -92,6 +109,15 @@ namespace BanHangDienTu.Admin
                                         if (UserDao.Instance.UpdateUser(user))
                                         {
                                             //Update success
+                                            Log log = new Log();
+
+                                            string LogID = db.Database.SqlQuery<String>(String.Format(@"select [dbo].[FN_GetLogIDNext]()")).FirstOrDefault();
+                                            log.MaLog = LogID;
+                                            log.TimeCreate = DateTime.Now;
+                                            log.UserName = GetCurrentUser().Email;
+                                            log.IsRead = false;
+                                            log.Messages = log.UserName + " Đã cập nhật thông tin người dùng: " + "Mã người dùng: " + user.UserName + " Tên: " + user.HoTen + " vào " + DateTime.Now.ToString();
+                                            LogDao.Instance.Create(log);
                                             SetNotify("create", "Xong!", "success", "Cập nhật thông tin người dùng thành công.");
                                             FillData();
                                         }
@@ -166,6 +192,15 @@ namespace BanHangDienTu.Admin
                                         if (UserDao.Instance.CreateUser(temp))
                                         {
                                             //Create success
+                                            Log log = new Log();
+
+                                            string LogID = db.Database.SqlQuery<String>(String.Format(@"select [dbo].[FN_GetLogIDNext]()")).FirstOrDefault();
+                                            log.MaLog = LogID;
+                                            log.TimeCreate = DateTime.Now;
+                                            log.UserName = GetCurrentUser().Email;
+                                            log.IsRead = false;
+                                            log.Messages = log.UserName + " Đã thêm mới người dùng: " + "Mã người dùng: " + user.UserName + " Tên: " + user.HoTen + " vào " + DateTime.Now.ToString();
+                                            LogDao.Instance.Create(log);
                                             SetNotify("create", "Xong!", "success", "Thêm mới người dùng thành công.");
                                             FillData();
                                         }
@@ -204,6 +239,16 @@ namespace BanHangDienTu.Admin
             }
         }
 
+        User GetCurrentUser()
+        {
+            if(Session[CommonContanst.USER_SESSION] != null)
+            {
+                var session = Session[CommonContanst.USER_SESSION] as UserLogin;
+                return db.Users.Find(session.UserID);
+            }
+            return null;
+        }
+
         protected void Delete_Click(object sender, EventArgs e)
         {
             string UserID = txtUserID_Delete.Value.ToString();
@@ -217,6 +262,16 @@ namespace BanHangDienTu.Admin
                     if (UserDao.Instance.DeleteUser(user.UserName))
                     {
                         //Delete success
+                        Log log = new Log();
+
+                        string LogID = db.Database.SqlQuery<String>(String.Format(@"select [dbo].[FN_GetLogIDNext]()")).FirstOrDefault();
+                        log.MaLog = LogID;
+                        log.TimeCreate = DateTime.Now;
+                        log.UserName = GetCurrentUser().Email;
+                        log.IsRead = false;
+                        log.Messages = log.UserName+ " Đã xóa người dùng: "+"Mã người dùng: "+user.UserName+" Tên: " + user.HoTen +" vào "+DateTime.Now.ToString();
+                        LogDao.Instance.Create(log);
+                        
                         SetNotify("modalDelete", "Xong!", "success", "Đã xóa người dùng khỏi hệ thống.");
                         FillData();
                     }
