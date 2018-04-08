@@ -9,6 +9,7 @@ namespace BanOto.Helper
     public class UserLogin
     {
         public string UserName { get; set; }
+        public string Hoten { get; set; }
         public string UserID { get; set; }
         public DateTime LoginTime { get; set; }
         public List<Hang> hangs { get; set; }
@@ -44,6 +45,13 @@ namespace BanOto.Helper
             get
             {
                 return "CART_SESSION";
+            }
+        }
+        public static string CART_HISTORY
+        {
+            get
+            {
+                return "CART_HISTORY";
             }
         }
     }

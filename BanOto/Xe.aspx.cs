@@ -18,8 +18,9 @@ namespace BanOto
             if (!Page.IsPostBack)
             {
                 loadDropDown();
-                load();
+                
             }
+            load();
             if (Request["type"] != null)
             {
                 string type = Request["type"].ToString();
@@ -64,22 +65,26 @@ namespace BanOto
                     if (type.Equals("khuyenmai"))
                     {
                         list = db.Xes.Where(x => x.GiamGia > 0).OrderByDescending(x => x.GiamGia).ToList();
+                        lbType.Text = "Xe Khuyến mại";
                     }
                     else if (type.Equals("xemoi"))
                     {
                         list = db.Xes.OrderByDescending(x => x.TimeCreate).ToList();
                         isOld = false;
+                        lbType.Text = "Xe Mới";
                     }
                     else if (type.Equals("quantam"))
                     {
                         list = db.Xes.OrderByDescending(x => x.DanhGia).ToList();
+                        lbType.Text = "Xe quan tâm nhiều";
                     }
                     else if (type.Equals("xecu"))
                     {
                         list = db.Xes.OrderBy(x => x.TimeCreate).ToList();
+                        lbType.Text = "Xe cũ";
                         isOld = true;
                     }
-                    lbType.Text = "Xe " + type;
+                    
                     listCars.DataSource = list;
                     listCars.DataBind();
                 }

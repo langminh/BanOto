@@ -18,6 +18,8 @@
     <Property Name="NoiDung" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
     <Property Name="MaXe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Xe" Relationship="Self.FK_BinhLuan_Xe" FromRole="BinhLuan" ToRole="Xe" />
+    <Property Name="HoTen" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="CTDonHang">
     <Key>

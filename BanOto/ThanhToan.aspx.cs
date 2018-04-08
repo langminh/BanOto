@@ -195,5 +195,13 @@ namespace BanOto
                 }
             }
         }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtSearch.Text.Trim()))
+            {
+                Response.Redirect("TimKiem.aspx?tenxe=" + txtSearch.Text);
+            }
+        }
     }
 }

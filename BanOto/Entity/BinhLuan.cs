@@ -18,6 +18,8 @@ namespace BanOto.Entity
         public string Email { get; set; }
         public string NoiDung { get; set; }
         public string MaXe { get; set; }
+        public string HoTen { get; set; }
+        public Nullable<System.DateTime> CreateTime { get; set; }
     
         public virtual Xe Xe { get; set; }
     }

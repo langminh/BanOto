@@ -5,6 +5,10 @@
         .content {
             margin-top: 50px;
         }
+
+        td {
+            padding: 0 10px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -24,7 +28,7 @@
                     <div style="float: left;">
                         <br />
                         <asp:Button ID="btnUpload" runat="server" Text="Upload" CssClass="btn btn-primary" OnClick="btnUpload_Click" />
-                        
+
                         <asp:Button runat="server" ID="btnThem" Text="Thêm" CssClass="btn btn-primary" OnClick="btnThem_Click" />
                         <asp:Button runat="server" ID="btnSua" Text="Sửa" CssClass="btn btn-primary" OnClick="btnSua_Click" />
                         <asp:Button runat="server" ID="btnXoa" Text="Xóa" CssClass="btn btn-danger" OnClick="btnXoa_Click" />
@@ -34,7 +38,7 @@
                     <div style="clear: both;"></div>
 
                 </div>
-                <asp:Image ID="Image1" runat="server"/>
+                <asp:Image ID="Image1" runat="server" />
                 <div class="row">
 
                     <asp:Label ID="lbThongBao" runat="server" Text=""></asp:Label>

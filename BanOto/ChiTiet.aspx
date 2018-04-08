@@ -1,8 +1,71 @@
 ﻿<%@ Page Title="Chi tiết" Language="C#" MasterPageFile="~/Client.Master" EnableEventValidation="false" AutoEventWireup="true" CodeBehind="ChiTiet.aspx.cs" Inherits="BanOto.ChiTiet" %>
 
+<%@ Import Namespace="BanOto.Helper" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="Asset/Client/css/detail.css" rel="stylesheet" />
     <link href="Asset/Client/css/owl.carousel.css" rel="stylesheet" />
+    <style>
+        .chat {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            background-color: lightblue;
+            width: 100%;
+            height: 400px;
+            overflow: auto;
+        }
+
+            .chat li {
+                margin-bottom: 10px;
+                padding-bottom: 5px;
+                border-bottom: 1px dotted #B3A9A9;
+                padding-top: 10px;
+            }
+
+                .chat li.left .chat-body {
+                    margin-left: 60px;
+                    padding: 0 10px;
+                }
+
+                .chat li.right .chat-body {
+                    margin-right: 60px;
+                }
+
+
+                .chat li .chat-body p {
+                    margin: 0 30px;
+                    color: black;
+                    text-align: justify;
+                }
+
+        img.img-circle {
+            max-width: 75px;
+        }
+
+        .panel .slidedown .glyphicon, .chat .glyphicon {
+            margin-right: 5px;
+        }
+
+        .panel-body {
+            overflow-y: scroll;
+            height: 250px;
+        }
+
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            background-color: #F5F5F5;
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+            background-color: #F5F5F5;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: #555;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="product-big-title-area">
@@ -27,7 +90,7 @@
                     <div class="single-sidebar">
                         <h2 class="sidebar-title">Tìm xe</h2>
                         <asp:TextBox runat="server" ID="txtSearch" TextMode="SingleLine" placeholder="Tìm xe..." />
-                        <asp:Button runat="server" ID="btnSearch" Text="Tìm kiếm" />
+                        <asp:Button runat="server" ID="btnSearch" OnClick="btnSearch_Click" Text="Tìm kiếm" />
                     </div>
 
                     <div class="single-sidebar">
@@ -70,16 +133,17 @@
                                 <div class="gallery">
                                     <div class="carousel">
                                         <% for (int i = 0; i < anhs.Count; i++)
-                                        {%> 
-                                            <%{
-                                                    var a = i; %>
-                                                <input type="radio" id="image<%= a+1 %>" name="gallery-control" />
-                                            <%} %>
+                                            {%>
+                                        <%{
+                                                var a = i; %>
+                                        <input type="radio" id="image<%= a+1 %>" name="gallery-control" />
+                                        <%} %>
                                         <%} %>
                                         <input type="checkbox" id="fullscreen" name="gallery-fullscreen-control" />
 
-                                        <div class="wrap">
-                                            <% for (int i = 0; i < anhs.Count; i++){ %>
+                                        <div class="wrap-img">
+                                            <% for (int i = 0; i < anhs.Count; i++)
+                                                { %>
                                             <figure>
                                                 <label for="fullscreen">
                                                     <img src="../Images/Cars/<%= anhs[i].Src %>" />
@@ -91,8 +155,10 @@
                                             <div class="slider">
                                                 <div class="indicator"></div>
                                             </div>
-                                            <% for (int i = 0; i < anhs.Count; i++){ var a = i;%>
-                                                <label for="image<%= a+1 %>" class="thumb" style="background-image: url('../Images/Cars/<%= anhs[i].Src %>')"></label>
+                                            <% for (int i = 0; i < anhs.Count; i++)
+                                                {
+                                                    var a = i;%>
+                                            <label for="image<%= a+1 %>" class="thumb" style="background-image: url('../Images/Cars/<%= anhs[i].Src %>')"></label>
                                             <%} %>
                                         </div>
                                     </div>
@@ -102,7 +168,7 @@
                             <div class="col-sm-12">
                                 <div class="product-inner">
                                     <h2 class="product-name">
-                                        <asp:HiddenField runat="server" ID="lbMaXe"/>
+                                        <asp:HiddenField runat="server" ID="lbMaXe" />
                                         <asp:Label runat="server" ID="lbNameCar" Text="San pham"></asp:Label></h2>
                                     <div class="product-inner-price">
                                         <ins><span>Giá: </span>
@@ -111,7 +177,8 @@
 
                                     <div class="cart">
                                         <div class="quantity">
-                                            <span>Số lượng: </span><input type="number" runat="server" id="txtSoLuong" size="10" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1" />
+                                            <span>Số lượng: </span>
+                                            <input type="number" runat="server" id="txtSoLuong" size="10" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1" />
                                         </div>
                                         <asp:Button runat="server" ID="btnCart" OnClick="btnCart_Click" CssClass="add_to_cart_button" Text="Thêm vào giỏ hàng"></asp:Button>
                                     </div>
@@ -225,20 +292,47 @@
                                             <div role="tabpanel" class="tab-pane fade" id="profile">
                                                 <h2>Đánh giá sản phẩm</h2>
                                                 <div class="submit-review">
+                                                    <% var session = Session[CommonContanst.USER_SESSION] as UserLogin; %>
+                                                    <% if (session == null)
+                                                        { %>
                                                     <p>
                                                         <label for="name">Họ tên</label>
-                                                        <input name="name" type="text" />
+                                                        <asp:TextBox runat="server" ID="txtTen" type="text" />
                                                     </p>
                                                     <p>
                                                         <label for="email">Email</label>
-                                                        <input name="email" type="email" />
+                                                        <asp:TextBox runat="server" TextMode="Email" ID="txtEmail" type="text" />
                                                     </p>
+                                                    <%}
+                                                        else
+                                                        {%>
+                                                    <asp:ListView runat="server" ID="listComment">
+                                                        <LayoutTemplate>
+                                                            <ul class="chat">
+                                                                <asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder>
+                                                            </ul>
+                                                        </LayoutTemplate>
+                                                        <ItemTemplate>
+                                                            <li class="left clearfix">
+                                                                <div class="chat-body clearfix">
+                                                                    <div class="header">
+                                                                        <strong class="primary-font"><%# Eval("Email") %></strong> <small class="pull-right text-muted">
+                                                                            <span class="glyphicon glyphicon-time"></span><%# Eval("CreateTime") %></small>
+                                                                    </div>
+                                                                    <p>
+                                                                        <%# Eval("NoiDung") %>
+                                                                    </p>
+                                                                </div>
+                                                            </li>
+                                                        </ItemTemplate>
+                                                    </asp:ListView>
+                                                    <%} %>
                                                     <p>
                                                         <label for="review">Đánh giá của bạn</label>
-                                                        <textarea name="review" id="" cols="30" rows="10"></textarea>
+                                                        <asp:TextBox runat="server" ID="txtNoiDung" TextMode="MultiLine" cols="30" Rows="10"></asp:TextBox>
                                                     </p>
                                                     <p>
-                                                        <input type="submit" value="Gửi" />
+                                                        <asp:Button runat="server" ID="btnSend" OnClick="btnSend_Click" Text="Gửi" />
                                                     </p>
                                                 </div>
                                             </div>

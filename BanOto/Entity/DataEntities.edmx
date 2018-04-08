@@ -17,10 +17,12 @@
           <Key>
             <PropertyRef Name="MaBL" />
           </Key>
-          <Property Name="MaBL" Type="int" Nullable="false" />
+          <Property Name="MaBL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="NoiDung" Type="nvarchar" MaxLength="550" />
           <Property Name="MaXe" Type="varchar" MaxLength="50" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="250" />
+          <Property Name="CreateTime" Type="datetime" />
         </EntityType>
         <EntityType Name="Counter">
           <Key>
@@ -511,6 +513,8 @@
           <Property Name="NoiDung" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
           <Property Name="MaXe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Xe" Relationship="Self.FK_BinhLuan_Xe" FromRole="BinhLuan" ToRole="Xe" />
+          <Property Name="HoTen" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="CTDonHang">
           <Key>
@@ -1023,6 +1027,8 @@
           <EntitySetMapping Name="BinhLuans">
             <EntityTypeMapping TypeName="BanOtoModel.BinhLuan">
               <MappingFragment StoreEntitySet="BinhLuan">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
                 <ScalarProperty Name="MaBL" ColumnName="MaBL" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />

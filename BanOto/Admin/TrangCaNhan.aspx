@@ -94,7 +94,7 @@
                                         <p>Finished 80% of all <a href="#">assigned tasks</a> <span class="timestamp">1 day ago</span></p>
                                     </li>
                                 </ul>--%>
-                                <div class="margin-top-30 text-center"><a href="#" class="btn btn-default">Xem tất cả các hoạt động</a></div>
+                                <div class="margin-top-30 text-center"><a href="ThongBaoMoi.aspx" class="btn btn-default">Xem tất cả các hoạt động</a></div>
                             </div>
 
                         </div>

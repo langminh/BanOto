@@ -5,6 +5,12 @@
     <script src="../Asset/Admin/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
     <script src="../Asset/Admin/assets/vendor/chartist/js/chartist.min.js"></script>
     <script src="../Asset/Admin/assets/scripts/klorofil-common.js"></script>
+    <style>
+        .col-md-4.cls {
+            padding: 5px 55px;
+            /* margin: 0 10px; */
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- MAIN CONTENT -->
@@ -25,17 +31,8 @@
                             <div class="metric">
                                 <span class="icon"><i class="fa fa-eye"></i></span>
                                 <p>
-                                    <asp:Label runat="server" ID="lbTruyCap" Text="1,252" CssClass="number"></asp:Label>
+                                    <asp:Label runat="server" ID="lbTruyCap" Text="" CssClass="number"></asp:Label>
                                     <span class="title">Lượt truy cập</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="metric">
-                                <span class="icon"><i class="fa fa-shopping-bag"></i></span>
-                                <p>
-                                    <asp:Label runat="server" ID="lbSoild" Text="15" CssClass="number"></asp:Label>
-                                    <span class="title">sản phẩm đã bán</span>
                                 </p>
                             </div>
                         </div>
@@ -43,99 +40,149 @@
                             <div class="metric">
                                 <span class="icon"><i class="fa fa-comment"></i></span>
                                 <p>
-                                    <asp:Label runat="server" ID="lbComment" Text="10" CssClass="10"></asp:Label>
-                                    <span class="title">Bình luận</span>
+                                    <asp:Label runat="server" ID="lbComment" Text="" CssClass="number"></asp:Label>
+                                    <span class="title">Online</span>
                                 </p>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="metric">
+                                <span class="icon"><i class="fa fa-shopping-bag"></i></span>
+                                <p>
+                                    <asp:Label runat="server" ID="lbSoild" Text="" CssClass="number"></asp:Label>
+                                    <span class="title">sản phẩm đã bán</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="metric">
                                 <span class="icon"><i class="fa fa-envelope-o"></i></span>
                                 <p>
-                                    <asp:Label runat="server" ID="lbMessage" Text="3" CssClass="number"></asp:Label>
-                                    <span class="title">Tin nhắn chưa đọc</span>
+                                    <asp:Label runat="server" ID="lbMessage" Text="" CssClass="number"></asp:Label>
+                                    <span class="title">Thông báo mới</span>
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div id="headline-chart" class="ct-chart"></div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="weekly-summary text-right">
-                                <asp:Label runat="server" ID="lbTotalSoild" Text="120" CssClass="number"></asp:Label>
-                                <span class="percentage"><i class="fa fa-caret-up text-success"></i>12%</span>
-                                <span class="info-label">Tổng lượng bán</span>
-                            </div>
-                            <div class="weekly-summary text-right">
-                                <asp:Label runat="server" ID="lbTotalMonth" Text="570000" CssClass="number"></asp:Label>
-                                <span class="percentage"><i class="fa fa-caret-up text-success"></i>23%</span>
-                                <span class="info-label">Trong tháng qua</span>
-                            </div>
-                            <div class="weekly-summary text-right">
-                                <asp:Label Text="120000" runat="server" ID="lbTotalWeek" CssClass="number"></asp:Label>
-                                <span class="percentage"><i class="fa fa-caret-down text-danger"></i>8%</span>
-                                <span class="info-label">Trong tuần này</span>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
-            <!-- END OVERVIEW -->
             <div class="row">
                 <div class="col-md-12">
-                    <!-- RECENT PURCHASES -->
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Yêu cầu hóa đơn mới</h3>
+                            <h3 class="panel-title">Lượt sản phẩm trong tháng</h3>
                             <div class="right">
                                 <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
                                 <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
                             </div>
                         </div>
                         <div class="panel-body no-padding">
-                            <asp:ListView runat="server" ID="listDH" OnItemCommand="listDH_ItemCommand">
-                                <LayoutTemplate>
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Mã hóa đơn</th>
-                                                <th>Tên khách hàng</th>
-                                                <th>Số lượng</th>
-                                                <th>Thời gian</th>
-                                                <th>Trạng thái</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <asp:PlaceHolder runat="server" ID="itemPlaceHolder"></asp:PlaceHolder>
-                                        </tbody>
-                                    </table>
-                                </LayoutTemplate>
-                                <ItemTemplate>
-                                    <tr>
-                                        <td><asp:LinkButton runat="server" CommandName="See" CommandArgument='<%#Eval("MaDH") %>' ID="LinkButton2"><%#Eval("MaDH") %></asp:LinkButton></td>
-                                        <td><%# Eval("HoTen") %></td>
-                                        <td><%# Eval("SoLuong") %></td>
-                                        <td><%# Eval("ThoiGian") %></td>
-                                        <td><%# Eval("TrangThai") %></td>
-                                    </tr>
-                                </ItemTemplate>
-                            </asp:ListView>
-                        </div>
-                        <div class="panel-footer">
                             <div class="row">
-                                <div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i>Trong vòng 24h qua</span></div>
-                                <div class="col-md-6 text-right">
-                                    <a href="/Admin/QuanLyDonHang.aspx" class="btn btn-primary" >Xem tất cả đơn hàng</a>
+                                <div class="col-md-4 cls">
+                                    <asp:Label runat="server" ID="lbTotalSoild" Text="120" CssClass="number"></asp:Label>
+                                    <span class="info-label">Tổng lượng bán</span>
+                                </div>
+                                <div class="col-md-4 cls">
+                                    <asp:Label runat="server" ID="lbTotalMonth" Text="" CssClass="number"></asp:Label>
+                                    <span class="info-label">Trong tháng qua</span>
+                                </div>
+                                <div class="col-md-4 cls">
+                                    <asp:Label Text="" runat="server" ID="lbTotalWeek" CssClass="number"></asp:Label>
+                                    <span class="info-label">Trong tuần này</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- END RECENT PURCHASES -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Lượt người dùng trong tháng</h3>
+                            <div class="right">
+                                <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                                <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+                            </div>
+                        </div>
+                        <div class="panel-body no-padding">
+                            <div class="row">
+                                <div class="col-md-4 cls">
+                                    <asp:Label runat="server" ID="Label1" Text="" CssClass="number"></asp:Label>
+                                    <span class="info-label">Tổng lượt người truy cập</span>
+                                </div>
+                                <div class="col-md-4 cls">
+                                    <asp:Label runat="server" ID="Label2" Text="" CssClass="number"></asp:Label>
+                                    <span class="info-label">Trong tháng qua</span>
+                                </div>
+                                <div class="col-md-4 cls">
+                                    <asp:Label Text="" runat="server" ID="Label3" CssClass="number"></asp:Label>
+                                    <span class="info-label">Trong tuần này</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- END OVERVIEW -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- RECENT PURCHASES -->
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Yêu cầu hóa đơn mới</h3>
+                        <div class="right">
+                            <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                            <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+                        </div>
+                    </div>
+                    <div class="panel-body no-padding">
+                        <asp:ListView runat="server" ID="listDH" OnItemCommand="listDH_ItemCommand">
+                            <LayoutTemplate>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã hóa đơn</th>
+                                            <th>Tên khách hàng</th>
+                                            <th>Số lượng</th>
+                                            <th>Thời gian</th>
+                                            <th>Trạng thái</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <asp:PlaceHolder runat="server" ID="itemPlaceHolder"></asp:PlaceHolder>
+                                    </tbody>
+                                </table>
+                            </LayoutTemplate>
+                            <ItemTemplate>
+                                <tr>
+                                    <td>
+                                        <asp:LinkButton runat="server" CommandName="See" CommandArgument='<%#Eval("MaDH") %>' ID="LinkButton2"><%#Eval("MaDH") %></asp:LinkButton></td>
+                                    <td><%# Eval("HoTen") %></td>
+                                    <td><%# Eval("SoLuong") %></td>
+                                    <td><%# Eval("ThoiGian") %></td>
+                                    <td><%# Eval("TrangThai") %></td>
+                                </tr>
+                            </ItemTemplate>
+                        </asp:ListView>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i>Trong vòng 24h qua</span></div>
+                            <div class="col-md-6 text-right">
+                                <a href="/Admin/QuanLyDonHang.aspx" class="btn btn-primary">Xem tất cả đơn hàng</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END RECENT PURCHASES -->
+            </div>
+        </div>
+    </div>
     </div>
     <!-- END MAIN CONTENT -->
 

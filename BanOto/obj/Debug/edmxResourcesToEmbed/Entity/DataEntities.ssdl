@@ -12,10 +12,12 @@
     <Key>
       <PropertyRef Name="MaBL" />
     </Key>
-    <Property Name="MaBL" Type="int" Nullable="false" />
+    <Property Name="MaBL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Email" Type="varchar" MaxLength="50" />
     <Property Name="NoiDung" Type="nvarchar" MaxLength="550" />
     <Property Name="MaXe" Type="varchar" MaxLength="50" />
+    <Property Name="HoTen" Type="nvarchar" MaxLength="250" />
+    <Property Name="CreateTime" Type="datetime" />
   </EntityType>
   <EntityType Name="Counter">
     <Key>

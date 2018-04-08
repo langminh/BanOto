@@ -134,7 +134,7 @@
                             </li>
                             <li><a href="/Admin/ThongBaoMoi.aspx" class=""><i class="lnr lnr-alarm"></i><span>Nhật ký hệ thống</span></a></li>
                             <li><a href="/Admin/QuanLyDonHang.aspx" class=""><i class="lnr lnr-list"></i><span>Quản lý đơn hàng</span></a></li>
-                            <li><a href="/Admin/ThongKe.aspx" class=""><i class="lnr lnr-chart-bars"></i><span>Thống kê</span></a></li>
+                            
                         </ul>
                     </nav>
                 </div>

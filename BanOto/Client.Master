@@ -1,6 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Client.master.cs" Inherits="BanOto.Client" %>
 
 <%@ Import Namespace="BanOto.Helper" %>
+<%@ Import Namespace="BanOto.Helper" %>
 <!DOCTYPE html>
 
 <html>
@@ -52,21 +53,22 @@
                         <div class="user-menu">
                             <ul>
                                 <li>
-                                    <asp:LinkButton runat="server" PostBackUrl="~/GioiHang.aspx"><i class="fa fa-shopping-cart"></i>Giỏ hàng</asp:LinkButton></li>
+                                    <asp:LinkButton runat="server" PostBackUrl="~/GioHang.aspx"><i class="fa fa-shopping-cart"></i>Giỏ hàng</asp:LinkButton></li>
                                 <li>
                                     <asp:LinkButton runat="server" PostBackUrl="~/ThanhToan.aspx"><i class="fa fa-credit-card"></i>Thanh toán</asp:LinkButton></li>
                                 <li>
-                                    <% if (Session[CommonContanst.USER_SESSION] != null)
+                                    <% var session = Session[CommonContanst.USER_SESSION] as UserLogin; %>
+                                    <% if (session != null && session.Role != 0)
                                         {%>
 
-                                    <asp:LinkButton runat="server">
+                                    <asp:LinkButton runat="server" PostBackUrl="~/Profile.aspx">
                                         <i class="fa fa-user"></i>
                                         <asp:Label runat="server" ID="lbName"></asp:Label>
                                     </asp:LinkButton>
                                     <%}
                                     else
                                     {%>
-                                    <asp:LinkButton runat="server"><i class="fa fa-sign-in"></i>Đăng nhập</asp:LinkButton></li>
+                                    <asp:LinkButton runat="server" PostBackUrl="~/DangNhap.aspx"><i class="fa fa-sign-in"></i>Đăng nhập</asp:LinkButton></li>
                                 <%} %>
                             </ul>
                         </div>
@@ -178,8 +180,8 @@
                         <div class="footer-menu">
                             <h2 class="footer-wid-title">Người dùng </h2>
                             <ul>
-                                <li><a href="#">Tài khoản</a></li>
-                                <li><a href="#">Lịch sử mua hàng</a></li>
+                                <li><a href="Profile.aspx">Tài khoản</a></li>
+                                <li><a href="LichSuMuaHang.aspx">Lịch sử mua hàng</a></li>
                                 <li><a href="#">Front page</a></li>
                             </ul>
                         </div>
@@ -206,10 +208,10 @@
                             <h2 class="footer-wid-title">Bản tin</h2>
                             <p>Đăng nhập ngay hoặc để lại địa chỉ email để có thể nhận được nhiều thông tin mới nhất từ chúng tôi.</p>
                             <div class="newsletter-form">
-                                <form action="#">
+                                <div>
                                     <asp:TextBox runat="server" TextMode="Email" ID="txtEmail" placeholder="Eamil" />
                                     <asp:Button runat="server" ID="btnSubscribe" Text="Đăng ký" />
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>

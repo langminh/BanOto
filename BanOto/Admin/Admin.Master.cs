@@ -20,7 +20,7 @@ namespace BanOto.Admin
                 load();
             }   
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            var logs = LogDao.Instance.GetLogs().Where(x => x.IsRead == false).Take(5).ToList();
+            var logs = LogDao.Instance.GetLogs().Where(x => x.IsRead == false).ToList();
             lbCount.Text = logs.Count.ToString();
         }
 

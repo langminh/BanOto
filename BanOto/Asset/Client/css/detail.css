@@ -41,7 +41,7 @@ body {
         width: 100%;
     }
 
-    .gallery .wrap {
+    .gallery .wrap-img {
         width: 100%;
         height: 100%;
         position: static;
@@ -62,50 +62,50 @@ body {
         margin-right: 20px;
     }
 
-        .gallery .wrap figure {
-            padding: 10px;
+    .gallery .wrap-img figure {
+        padding: 10px;
+        height: 100%;
+        min-width: 100%;
+        -webkit-transition: opacity 0.25s ease-in-out 0.05s;
+        transition: opacity 0.25s ease-in-out 0.05s;
+        position: relative;
+        left: 0;
+        -webkit-transform: translateX(0%);
+        transform: translateX(0%);
+        box-sizing: border-box;
+        text-align: center;
+        margin: 0;
+        display: block;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        opacity: 1;
+    }
+
+        .gallery .wrap-img figure label {
+            cursor: zoom-in;
+            height: auto;
+            width: 100%;
             height: 100%;
-            min-width: 100%;
-            -webkit-transition: opacity 0.25s ease-in-out 0.05s;
-            transition: opacity 0.25s ease-in-out 0.05s;
             position: relative;
-            left: 0;
-            -webkit-transform: translateX(0%);
-            transform: translateX(0%);
-            box-sizing: border-box;
-            text-align: center;
-            margin: 0;
             display: block;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            justify-content: center;
-            opacity: 1;
         }
 
-            .gallery .wrap figure label {
-                cursor: zoom-in;
-                height: auto;
-                width: 100%;
-                height: 100%;
-                position: relative;
-                display: block;
-            }
-
-            .gallery .wrap figure img {
-                cursor: inherit;
-                height: auto;
-                max-width: 100%;
-                max-height: 100%;
-                border-radius: 3px;
-                margin: 0 auto;
-                position: relative;
-                top: 50%;
-                -webkit-transform: translateY(-50%);
-                transform: translateY(-50%);
-            }
+    .gallery .wrap-img figure img {
+        cursor: inherit;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 3px;
+        margin: 0 auto;
+        position: relative;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
 
     .gallery .thumbnails {
         -webkit-box-flex: 1;
@@ -179,7 +179,7 @@ body {
                 border-radius: 1px;
             }
 
-    .gallery input#fullscreen:checked ~ .wrap figure {
+    .gallery input#fullscreen:checked ~ .wrap-img figure {
         position: fixed;
         z-index: 10;
         height: 100vh;
@@ -195,11 +195,11 @@ body {
         animation-fill-mode: forwards;
     }
 
-        .gallery input#fullscreen:checked ~ .wrap figure label {
+        .gallery input#fullscreen:checked ~ .wrap-img figure label {
             cursor: zoom-out;
         }
 
-            .gallery input#fullscreen:checked ~ .wrap figure label img {
+            .gallery input#fullscreen:checked ~ .wrap-img figure label img {
                 -webkit-animation: shadow 0.2s;
                 animation: shadow 0.2s;
                 -webkit-animation-timing-function: ease-in-out;
@@ -211,12 +211,12 @@ body {
                 border-radius: 0;
             }
 
-    .gallery input#image1:checked ~ .wrap figure {
+    .gallery input#image1:checked ~ .wrap-img figure {
         -webkit-transform: translateX(0);
         transform: translateX(0);
     }
 
-        .gallery input#image1:checked ~ .wrap figure:not(:nth-of-type(1)) {
+        .gallery input#image1:checked ~ .wrap-img figure:not(:nth-of-type(1)) {
             opacity: 0;
         }
 
@@ -230,12 +230,12 @@ body {
         cursor: default;
     }
 
-    .gallery input#image2:checked ~ .wrap figure {
+    .gallery input#image2:checked ~ .wrap-img figure {
         -webkit-transform: translateX(-100%);
         transform: translateX(-100%);
     }
 
-        .gallery input#image2:checked ~ .wrap figure:not(:nth-of-type(2)) {
+        .gallery input#image2:checked ~ .wrap-img figure:not(:nth-of-type(2)) {
             opacity: 0;
         }
 
@@ -249,12 +249,12 @@ body {
         cursor: default;
     }
 
-    .gallery input#image3:checked ~ .wrap figure {
+    .gallery input#image3:checked ~ .wrap-img figure {
         -webkit-transform: translateX(-200%);
         transform: translateX(-200%);
     }
 
-        .gallery input#image3:checked ~ .wrap figure:not(:nth-of-type(3)) {
+        .gallery input#image3:checked ~ .wrap-img figure:not(:nth-of-type(3)) {
             opacity: 0;
         }
 
@@ -268,12 +268,12 @@ body {
         cursor: default;
     }
 
-    .gallery input#image4:checked ~ .wrap figure {
+    .gallery input#image4:checked ~ .wrap-img figure {
         -webkit-transform: translateX(-300%);
         transform: translateX(-300%);
     }
 
-        .gallery input#image4:checked ~ .wrap figure:not(:nth-of-type(4)) {
+        .gallery input#image4:checked ~ .wrap-img figure:not(:nth-of-type(4)) {
             opacity: 0;
         }
 

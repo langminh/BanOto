@@ -1,4 +1,5 @@
 ﻿using BanOto.Entity;
+using BanOto.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace BanOto
 
         void load()
         {
-            if(Request["id"] != null)
+            if (Request["id"] != null)
             {
                 string id = Request["id"].ToString();
                 var xe = db.Xes.Find(id);
@@ -39,10 +40,10 @@ namespace BanOto
                 lbDai.Text = xe.ChieuDai == null ? "" : (xe.ChieuDai.Value == 0 ? "" : xe.ChieuDai.Value.ToString());
                 lbDungTichXiLanh.Text = string.IsNullOrEmpty(xe.DungTichXiLanh) ? "" : (xe.DungTichXiLanh.Equals(0) == true ? "" : xe.DungTichXiLanh);
                 lbHang.Text = xe.ThuongHieu.TenTH;
-                string htt = string.IsNullOrEmpty(xe.HeThongTreoTruoc) == true ? "" : "Trước: "+xe.HeThongTreoTruoc+";";
-                htt += string.IsNullOrEmpty(xe.HeThongTreoSau) == true ? "" : " Sau: "+xe.HeThongTreoSau+";";
+                string htt = string.IsNullOrEmpty(xe.HeThongTreoTruoc) == true ? "" : "Trước: " + xe.HeThongTreoTruoc + ";";
+                htt += string.IsNullOrEmpty(xe.HeThongTreoSau) == true ? "" : " Sau: " + xe.HeThongTreoSau + ";";
                 lbHTTreo.Text = htt;
-                string lop = string.IsNullOrEmpty(xe.KichCoLopT) == true ? "" : "Trước: " + xe.KichCoLopT+";";
+                string lop = string.IsNullOrEmpty(xe.KichCoLopT) == true ? "" : "Trước: " + xe.KichCoLopT + ";";
                 lop += string.IsNullOrEmpty(xe.KichCoLopS) == true ? "" : " Sau: " + xe.KichCoLopS;
                 lbKClop.Text = lop;
                 lbKhoangSang.Text = xe.KhoangSangGam == null ? "" : (xe.KhoangSangGam.Value == 0 ? "" : xe.KhoangSangGam + "");
@@ -62,19 +63,122 @@ namespace BanOto
 
                 listCungLoai.DataSource = db.Xes.Where(x => x.MaLoaiXe == xe.MaLoaiXe).Take(4).ToList();
                 listCungLoai.DataBind();
-                
+
 
                 listNewCars.DataSource = db.Xes.OrderBy(x => x.TimeCreate).Take(8).ToList();
                 listNewCars.DataBind();
 
                 list.DataSource = db.Xes.OrderByDescending(x => x.DanhGia).Take(8).ToList();
                 list.DataBind();
+
+                listComment.DataSource = db.BinhLuans.Where(x => x.MaXe.Equals(id)).ToList();
+                listComment.DataBind();
             }
         }
 
         protected void btnCart_Click(object sender, EventArgs e)
         {
             Response.Redirect("GioHang.aspx?id=" + lbMaXe.Value.ToString() + "&soluong=" + txtSoLuong.Value.ToString());
+        }
+
+        protected void btnSend_Click(object sender, EventArgs e)
+        {
+            var session = Session[CommonContanst.USER_SESSION] as UserLogin;
+            if (session != null)
+            {
+                if (session.Role != 0)
+                {
+                    if (!string.IsNullOrEmpty(txtNoiDung.Text.Trim()))
+                    {
+                        try
+                        {
+                            BinhLuan bl = new BinhLuan();
+                            bl.Email = session.UserName;
+                            bl.HoTen = db.Users.Find(session.UserID).HoTen;
+                            string id = Request["id"].ToString();
+                            var xe = db.Xes.Find(id);
+                            bl.MaXe = xe.MaXe;
+                            bl.CreateTime = DateTime.Now;
+                            bl.NoiDung = txtNoiDung.Text;
+                            db.BinhLuans.Add(bl);
+                            db.SaveChanges();
+                            load();
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(txtNoiDung.Text.Trim()))
+                    {
+                        try
+                        {
+                            BinhLuan bl = new BinhLuan();
+                            bl.Email = session.UserName;
+                            bl.HoTen = session.Hoten;
+                            string id = Request["id"].ToString();
+                            var xe = db.Xes.Find(id);
+                            bl.MaXe = xe.MaXe;
+                            bl.CreateTime = DateTime.Now;
+                            bl.NoiDung = txtNoiDung.Text;
+                            db.BinhLuans.Add(bl);
+                            db.SaveChanges();
+                            load();
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(txtEmail.Text.Trim()))
+                {
+                    if (!string.IsNullOrEmpty(txtTen.Text.Trim()))
+                    {
+                        if (!string.IsNullOrEmpty(txtNoiDung.Text.Trim()))
+                        {
+                            try
+                            {
+                                BinhLuan bl = new BinhLuan();
+                                bl.Email = txtEmail.Text;
+                                bl.HoTen = txtTen.Text;
+                                string id = Request["id"].ToString();
+                                var xe = db.Xes.Find(id);
+                                bl.MaXe = xe.MaXe;
+                                bl.NoiDung = txtNoiDung.Text;
+                                bl.CreateTime = DateTime.Now;
+                                db.BinhLuans.Add(bl);
+
+                                UserLogin ses = new UserLogin();
+                                ses.UserName = txtEmail.Text;
+                                ses.Hoten = txtTen.Text;
+                                Session[CommonContanst.USER_SESSION] = ses;
+
+                                db.SaveChanges();
+                                load();
+                            }
+                            catch (Exception ex)
+                            {
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtSearch.Text.Trim()))
+            {
+                Response.Redirect("TimKiem.aspx?tenxe=" + txtSearch.Text);
+            }
         }
     }
 }

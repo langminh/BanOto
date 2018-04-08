@@ -1,0 +1,163 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="BanOto.Admin.Admin" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="../Asset/Admin/assets/vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../Asset/Admin/assets/vendor/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../Asset/Admin/assets/vendor/linearicons/style.css" />
+    <link rel="stylesheet" href="../Asset/Admin/assets/vendor/chartist/css/chartist-custom.css" />
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../Asset/Admin/assets/css/main.css" />
+    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+    <link rel="stylesheet" href="../Asset/Admin/assets/css/demo.css" />
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet" />
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" href="../Asset/Admin/assets/img/apple-icon.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="../Asset/Admin/assets/img/favicon.png" />
+    <!-- Javascript -->
+    <script src="../Scripts/jquery-3.2.1.min.js"></script>
+    <script src="../Asset/Admin/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- WRAPPER -->
+        <div id="wrapper">
+            <!-- NAVBAR -->
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="brand">
+                    <a href="/Admin/Index.aspx">
+                        <img src="../Asset/Admin/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo" /></a>
+                </div>
+                <div class="container-fluid">
+                    <form class="navbar-form navbar-left">
+                        <div class="input-group">
+                            <asp:TextBox TextMode="SingleLine" runat="server" ID="txtSearch" CssClass="form-control" placeholder="Tìm kiếm trong bảng điều khiển..." />
+                            <span class="input-group-btn">
+                                <asp:Button runat="server" ID="btnSearch" CssClass="btn btn-primary" Text="Tìm kiếm"></asp:Button></span>
+                        </div>
+                    </form>
+                    <div id="navbar-menu">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+                                    <i class="lnr lnr-alarm"></i>
+                                    <asp:Label runat="server" ID="lbCount" CssClass="badge bg-danger" Text=""></asp:Label>
+                                </a>
+                                <asp:ListView runat="server" ID="listNotify">
+                                    <LayoutTemplate>
+                                        <ul class="dropdown-menu notifications">
+                                            <asp:PlaceHolder ID="itemPlaceholder" runat="server"></asp:PlaceHolder>
+                                            <li><a href="/Admin/ThongBaoMoi.aspx" class="more">Xem tất cả thông báo</a></li>
+                                        </ul>
+                                    </LayoutTemplate>
+                                    <ItemTemplate>
+                                        <li><a href="#" class="notification-item"><span class="dot bg-warning"></span><%# Eval("Messages") %></a></li>
+                                    </ItemTemplate>
+                                </asp:ListView>
+<%--                                <ul class="dropdown-menu notifications">
+                                    <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Bạn có 3 tin nhắn mới</a></li>
+                                    <li><a href="#" class="notification-item"><span class="dot bg-danger"></span>Bạn có 1 đơn đặt hàng mới</a></li>
+                                    <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Có 1 lượt bình luận về sản phẩm</a></li>
+                                    
+                                </ul>--%>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="lnr lnr-question-circle"></i><span>Giúp đỡ</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Cơ bản</a></li>
+                                    <li><a href="#">Bảo mật</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="../Asset/Admin/assets/img/user.png" runat="server" id="imgUser" class="img-circle" alt="Avatar" />
+                                    <asp:Label runat="server" ID="userName" Text="Admin"></asp:Label>
+                                    <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <asp:LinkButton runat="server" PostBackUrl="~/Admin/TrangCaNhan.aspx"><i class="lnr lnr-user"></i><span>Trang cá nhân</span></asp:LinkButton></li>
+                                    <li>
+                                        <asp:LinkButton runat="server" PostBackUrl="~/Admin/Chat.aspx"><i class="lnr lnr-envelope"></i><span>Tin nhắn</span></asp:LinkButton></li>
+                                    <li><a href="#"><i class="lnr lnr-cog"></i><span>Cài đặt</span></a></li>
+                                    <li>
+                                        <asp:LinkButton runat="server" PostBackUrl="~/Admin/LockScreen.aspx"><i class="lnr lnr-lock"></i><span>Khóa màn hình</span></asp:LinkButton></li>
+                                    <li>
+                                        <asp:LinkButton runat="server" OnClick="Unnamed_Click"><i class="lnr lnr-exit"></i><span>Đăng xuất</span></asp:LinkButton></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- END NAVBAR -->
+            <!-- LEFT SIDEBAR -->
+            <div id="sidebar-nav" class="sidebar">
+                <div class="sidebar-scroll">
+                    <nav>
+                        <ul class="nav" id="servicesleft">
+                            <li>
+                                <asp:LinkButton runat="server" PostBackUrl="~/Admin/Index.aspx"><i class="lnr lnr-home"></i><span>Bảng điều khiển</span></asp:LinkButton></li>
+                            <li>
+                                <asp:LinkButton runat="server" PostBackUrl="~/Admin/QuanLyNguoiDung.aspx" class=""><i class="lnr lnr-user"></i><span>Quản lý người dùng</span></asp:LinkButton></li>
+                            <li>
+                                <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-inbox"></i><span>Quản lý sản phẩm</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subPages" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="/Admin/DanhSachXe.aspx" class="">Quản lý xe</a></li>
+                                        <li><a href="/Admin/QuanLyLoaiXe.aspx" class="">Quản lý loại xe</a></li>
+                                        <li><a href="/Admin/QuanLyMauXe.aspx" class="">Quản lý màu xe</a></li>
+                                        <li><a href="/Admin/QuanLyLoaiHopSo.aspx" class="">Quản lý loại hộp số</a></li>
+                                        <li><a href="/Admin/QuanLyHangXe.aspx" class="">Quản lý hãng xe</a></li>
+                                        <li><a href="/Admin/QuanLyXuatXu.aspx" class="">Quản lý xuất xứ</a></li>
+                                        <li><a href="/Admin/QuanLySlide.aspx" class="">Quản lý slide</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#subPages_1" data-toggle="collapse" class="collapsed"><i class="fa fa-truck"></i><span>Quản lý phương thức</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subPages_1" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="/Admin/QuanLyHinhThucVanChuyen.aspx" class="">Quản lý phương thức vận chuyển</a></li>
+                                        <li><a href="/Admin/QuanLyHinhThucThanhToan.aspx" class="">Quản lý phương thức thanh toán</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="/Admin/ThongBaoMoi.aspx" class=""><i class="lnr lnr-alarm"></i><span>Nhật ký hệ thống</span></a></li>
+                            <li><a href="/Admin/QuanLyDonHang.aspx" class=""><i class="lnr lnr-list"></i><span>Quản lý đơn hàng</span></a></li>
+                            <li><a href="/Admin/ThongKe.aspx" class=""><i class="lnr lnr-chart-bars"></i><span>Thống kê</span></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- END LEFT SIDEBAR -->
+            <!-- MAIN -->
+            <div class="main">
+                <div>
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </div>
+            <!-- END MAIN -->
+            <div class="clearfix"></div>
+            <footer>
+                <div class="container-fluid">
+                    <p class="copyright">&copy; 2017 <a href="https://www.themeineed.com" target="_blank">Theme I Need</a>. All Rights Reserved.</p>
+                </div>
+            </footer>
+        </div>
+    </form>
+    <!-- END WRAPPER -->
+
+
+</body>
+</html>

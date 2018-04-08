@@ -1,0 +1,515 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BanOtoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Anh">
+    <Key>
+      <PropertyRef Name="MaAnh" />
+    </Key>
+    <Property Name="MaAnh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Src" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="MaXe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Xe" Relationship="Self.FK_Anh_Xe" FromRole="Anh" ToRole="Xe" />
+  </EntityType>
+  <EntityType Name="BinhLuan">
+    <Key>
+      <PropertyRef Name="MaBL" />
+    </Key>
+    <Property Name="MaBL" Type="Int32" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NoiDung" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+    <Property Name="MaXe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Xe" Relationship="Self.FK_BinhLuan_Xe" FromRole="BinhLuan" ToRole="Xe" />
+  </EntityType>
+  <EntityType Name="CTDonHang">
+    <Key>
+      <PropertyRef Name="MaDH" />
+      <PropertyRef Name="MaXe" />
+    </Key>
+    <Property Name="MaDH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MaXe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SoLuong" Type="Int32" />
+    <NavigationProperty Name="DonHang" Relationship="Self.FK_CTDonHang_DonHang" FromRole="CTDonHang" ToRole="DonHang" />
+    <NavigationProperty Name="Xe" Relationship="Self.FK_CTDonHang_Xe" FromRole="CTDonHang" ToRole="Xe" />
+  </EntityType>
+  <EntityType Name="DonHang">
+    <Key>
+      <PropertyRef Name="MaDH" />
+    </Key>
+    <Property Name="MaDH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Sdt" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ChuThich" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="MaTT" Type="Int32" />
+    <Property Name="MaVC" Type="Int32" />
+    <Property Name="NgayDH" Type="DateTime" Nullable="true" Precision="3" />
+    <NavigationProperty Name="CTDonHangs" Relationship="Self.FK_CTDonHang_DonHang" FromRole="DonHang" ToRole="CTDonHang" />
+    <NavigationProperty Name="ThanhToan" Relationship="Self.FK_DonHang_ThanhToan" FromRole="DonHang" ToRole="ThanhToan" />
+    <NavigationProperty Name="VanChuyen" Relationship="Self.FK_DonHang_VanChuyen" FromRole="DonHang" ToRole="VanChuyen" />
+    <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="LoaiHopSo">
+    <Key>
+      <PropertyRef Name="MaHS" />
+    </Key>
+    <Property Name="MaHS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenHS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Xes" Relationship="Self.FK_Xe_LoaiHopSo" FromRole="LoaiHopSo" ToRole="Xe" />
+  </EntityType>
+  <EntityType Name="LoaiXe">
+    <Key>
+      <PropertyRef Name="MaLX" />
+    </Key>
+    <Property Name="MaLX" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenLX" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Xes" Relationship="Self.FK_Xe_LoaiXe" FromRole="LoaiXe" ToRole="Xe" />
+  </EntityType>
+  <EntityType Name="Log">
+    <Key>
+      <PropertyRef Name="MaLog" />
+    </Key>
+    <Property Name="MaLog" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Messages" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="TimeLogin" Type="DateTime" Precision="3" />
+    <Property Name="TimeLogout" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Logs_User" FromRole="Logs" ToRole="User" />
+    <Property Name="TimeCreate" Type="DateTime" Precision="3" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsRead" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Mau">
+    <Key>
+      <PropertyRef Name="MaMau" />
+    </Key>
+    <Property Name="MaMau" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenMau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Xes" Relationship="Self.FK_Xe_Mau" FromRole="Mau" ToRole="Xe" />
+  </EntityType>
+  <EntityType Name="NoiDung">
+    <Key>
+      <PropertyRef Name="From" />
+      <PropertyRef Name="To" />
+    </Key>
+    <Property Name="From" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="To" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Message" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TinNhan" Relationship="Self.FK_NoiDung_TinNhan" FromRole="NoiDung" ToRole="TinNhan" />
+  </EntityType>
+  <EntityType Name="Quyen">
+    <Key>
+      <PropertyRef Name="MaQuyen" />
+    </Key>
+    <Property Name="MaQuyen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenQuyen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_User_Quyen" FromRole="Quyen" ToRole="User" />
+  </EntityType>
+  <EntityType Name="ThanhToan">
+    <Key>
+      <PropertyRef Name="MaTT" />
+    </Key>
+    <Property Name="MaTT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenTT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DonHangs" Relationship="Self.FK_DonHang_ThanhToan" FromRole="ThanhToan" ToRole="DonHang" />
+    <Property Name="ChietKhau" Type="Double" />
+  </EntityType>
+  <EntityType Name="ThuongHieu">
+    <Key>
+      <PropertyRef Name="MaTH" />
+    </Key>
+    <Property Name="MaTH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenTH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Xes" Relationship="Self.FK_Xe_ThuongHieu" FromRole="ThuongHieu" ToRole="Xe" />
+    <Property Name="Anh" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="TinNhan">
+    <Key>
+      <PropertyRef Name="From" />
+      <PropertyRef Name="To" />
+    </Key>
+    <Property Name="From" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="To" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="NoiDung" Relationship="Self.FK_NoiDung_TinNhan" FromRole="TinNhan" ToRole="NoiDung" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserName" />
+    </Key>
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MatKhau" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Sdt" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="GT" Type="Boolean" />
+    <Property Name="MaQuyen" Type="Int32" Nullable="false" />
+    <Property Name="Avatar" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Logs" Relationship="Self.FK_Logs_User" FromRole="User" ToRole="Logs" />
+    <NavigationProperty Name="Quyen" Relationship="Self.FK_User_Quyen" FromRole="User" ToRole="Quyen" />
+    <Property Name="IsLock" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VanChuyen">
+    <Key>
+      <PropertyRef Name="MaVC" />
+    </Key>
+    <Property Name="MaVC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenVC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DonHangs" Relationship="Self.FK_DonHang_VanChuyen" FromRole="VanChuyen" ToRole="DonHang" />
+    <Property Name="PhiVC" Type="Double" />
+  </EntityType>
+  <EntityType Name="Xe">
+    <Key>
+      <PropertyRef Name="MaXe" />
+    </Key>
+    <Property Name="MaXe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TenXe" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DungTichXiLanh" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="MaMau" Type="Int32" />
+    <Property Name="LoaiHopSo" Type="Int32" />
+    <Property Name="MaXX" Type="Int32" />
+    <Property Name="MaLoaiXe" Type="Int32" />
+    <Property Name="MaTH" Type="Int32" />
+    <Property Name="CongXuat" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="ChoNgoi" Type="Int32" />
+    <Property Name="GiaBan" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="GiamGia" Type="Double" />
+    <Property Name="MomenXoan" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="KieuTruyenDong" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+    <Property Name="TrongLuong" Type="Double" />
+    <Property Name="ChieuCao" Type="Int32" />
+    <Property Name="ChieuRong" Type="Int32" />
+    <Property Name="ChieuDai" Type="Int32" />
+    <Property Name="TangAp" Type="Boolean" />
+    <Property Name="MamVanh" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="PhanhTruoc" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="PhanhSau" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="KichCoLopT" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="KichCoLopS" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="HeThongTreoTruoc" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+    <Property Name="HeThongTreoSau" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+    <Property Name="KhoangSangGam" Type="Int32" />
+    <Property Name="HeThongDenT" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+    <Property Name="HeThongDenS" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+    <Property Name="HeThongLoa" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+    <Property Name="GuongChieuHau" Type="Boolean" />
+    <Property Name="ChongBoABS" Type="Boolean" />
+    <Property Name="MoTa" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+    <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DanhGia" Type="Int32" />
+    <Property Name="TinhTrang" Type="Boolean" />
+    <Property Name="SoLuong" Type="Int32" />
+    <Property Name="NamSX" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Anh" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Anhs" Relationship="Self.FK_Anh_Xe" FromRole="Xe" ToRole="Anh" />
+    <NavigationProperty Name="BinhLuans" Relationship="Self.FK_BinhLuan_Xe" FromRole="Xe" ToRole="BinhLuan" />
+    <NavigationProperty Name="CTDonHangs" Relationship="Self.FK_CTDonHang_Xe" FromRole="Xe" ToRole="CTDonHang" />
+    <NavigationProperty Name="LoaiHopSo1" Relationship="Self.FK_Xe_LoaiHopSo" FromRole="Xe" ToRole="LoaiHopSo" />
+    <NavigationProperty Name="LoaiXe" Relationship="Self.FK_Xe_LoaiXe" FromRole="Xe" ToRole="LoaiXe" />
+    <NavigationProperty Name="Mau" Relationship="Self.FK_Xe_Mau" FromRole="Xe" ToRole="Mau" />
+    <NavigationProperty Name="ThuongHieu" Relationship="Self.FK_Xe_ThuongHieu" FromRole="Xe" ToRole="ThuongHieu" />
+    <NavigationProperty Name="XuatXu" Relationship="Self.FK_Xe_XuatXu" FromRole="Xe" ToRole="XuatXu" />
+    <Property Name="TimeCreate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="XuatXu">
+    <Key>
+      <PropertyRef Name="MaXX" />
+    </Key>
+    <Property Name="MaXX" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenXX" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Xes" Relationship="Self.FK_Xe_XuatXu" FromRole="XuatXu" ToRole="Xe" />
+  </EntityType>
+  <Association Name="FK_Anh_Xe">
+    <End Role="Xe" Type="Self.Xe" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Anh" Type="Self.Anh" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Xe">
+        <PropertyRef Name="MaXe" />
+      </Principal>
+      <Dependent Role="Anh">
+        <PropertyRef Name="MaXe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BinhLuan_Xe">
+    <End Role="Xe" Type="Self.Xe" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BinhLuan" Type="Self.BinhLuan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Xe">
+        <PropertyRef Name="MaXe" />
+      </Principal>
+      <Dependent Role="BinhLuan">
+        <PropertyRef Name="MaXe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CTDonHang_DonHang">
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CTDonHang" Type="Self.CTDonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DonHang">
+        <PropertyRef Name="MaDH" />
+      </Principal>
+      <Dependent Role="CTDonHang">
+        <PropertyRef Name="MaDH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CTDonHang_Xe">
+    <End Role="Xe" Type="Self.Xe" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CTDonHang" Type="Self.CTDonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Xe">
+        <PropertyRef Name="MaXe" />
+      </Principal>
+      <Dependent Role="CTDonHang">
+        <PropertyRef Name="MaXe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DonHang_ThanhToan">
+    <End Role="ThanhToan" Type="Self.ThanhToan" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThanhToan">
+        <PropertyRef Name="MaTT" />
+      </Principal>
+      <Dependent Role="DonHang">
+        <PropertyRef Name="MaTT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DonHang_VanChuyen">
+    <End Role="VanChuyen" Type="Self.VanChuyen" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VanChuyen">
+        <PropertyRef Name="MaVC" />
+      </Principal>
+      <Dependent Role="DonHang">
+        <PropertyRef Name="MaVC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Xe_LoaiHopSo">
+    <End Role="LoaiHopSo" Type="Self.LoaiHopSo" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Xe" Type="Self.Xe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiHopSo">
+        <PropertyRef Name="MaHS" />
+      </Principal>
+      <Dependent Role="Xe">
+        <PropertyRef Name="LoaiHopSo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Xe_LoaiXe">
+    <End Role="LoaiXe" Type="Self.LoaiXe" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Xe" Type="Self.Xe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiXe">
+        <PropertyRef Name="MaLX" />
+      </Principal>
+      <Dependent Role="Xe">
+        <PropertyRef Name="MaLoaiXe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Logs_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Logs" Type="Self.Log" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="Logs">
+        <PropertyRef Name="UserName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Xe_Mau">
+    <End Role="Mau" Type="Self.Mau" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Xe" Type="Self.Xe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mau">
+        <PropertyRef Name="MaMau" />
+      </Principal>
+      <Dependent Role="Xe">
+        <PropertyRef Name="MaMau" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NoiDung_TinNhan">
+    <End Role="TinNhan" Type="Self.TinNhan" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="NoiDung" Type="Self.NoiDung" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="TinNhan">
+        <PropertyRef Name="From" />
+        <PropertyRef Name="To" />
+      </Principal>
+      <Dependent Role="NoiDung">
+        <PropertyRef Name="From" />
+        <PropertyRef Name="To" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Quyen">
+    <End Role="Quyen" Type="Self.Quyen" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quyen">
+        <PropertyRef Name="MaQuyen" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="MaQuyen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Xe_ThuongHieu">
+    <End Role="ThuongHieu" Type="Self.ThuongHieu" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Xe" Type="Self.Xe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThuongHieu">
+        <PropertyRef Name="MaTH" />
+      </Principal>
+      <Dependent Role="Xe">
+        <PropertyRef Name="MaTH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Xe_XuatXu">
+    <End Role="XuatXu" Type="Self.XuatXu" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Xe" Type="Self.Xe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="XuatXu">
+        <PropertyRef Name="MaXX" />
+      </Principal>
+      <Dependent Role="Xe">
+        <PropertyRef Name="MaXX" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BanOtoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Anhs" EntityType="Self.Anh" />
+    <EntitySet Name="BinhLuans" EntityType="Self.BinhLuan" />
+    <EntitySet Name="CTDonHangs" EntityType="Self.CTDonHang" />
+    <EntitySet Name="DonHangs" EntityType="Self.DonHang" />
+    <EntitySet Name="LoaiHopSoes" EntityType="Self.LoaiHopSo" />
+    <EntitySet Name="LoaiXes" EntityType="Self.LoaiXe" />
+    <EntitySet Name="Logs" EntityType="Self.Log" />
+    <EntitySet Name="Maus" EntityType="Self.Mau" />
+    <EntitySet Name="NoiDungs" EntityType="Self.NoiDung" />
+    <EntitySet Name="Quyens" EntityType="Self.Quyen" />
+    <EntitySet Name="ThanhToans" EntityType="Self.ThanhToan" />
+    <EntitySet Name="ThuongHieux" EntityType="Self.ThuongHieu" />
+    <EntitySet Name="TinNhans" EntityType="Self.TinNhan" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="VanChuyens" EntityType="Self.VanChuyen" />
+    <EntitySet Name="Xes" EntityType="Self.Xe" />
+    <EntitySet Name="XuatXus" EntityType="Self.XuatXu" />
+    <AssociationSet Name="FK_Anh_Xe" Association="Self.FK_Anh_Xe">
+      <End Role="Xe" EntitySet="Xes" />
+      <End Role="Anh" EntitySet="Anhs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BinhLuan_Xe" Association="Self.FK_BinhLuan_Xe">
+      <End Role="Xe" EntitySet="Xes" />
+      <End Role="BinhLuan" EntitySet="BinhLuans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CTDonHang_DonHang" Association="Self.FK_CTDonHang_DonHang">
+      <End Role="DonHang" EntitySet="DonHangs" />
+      <End Role="CTDonHang" EntitySet="CTDonHangs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CTDonHang_Xe" Association="Self.FK_CTDonHang_Xe">
+      <End Role="Xe" EntitySet="Xes" />
+      <End Role="CTDonHang" EntitySet="CTDonHangs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DonHang_ThanhToan" Association="Self.FK_DonHang_ThanhToan">
+      <End Role="ThanhToan" EntitySet="ThanhToans" />
+      <End Role="DonHang" EntitySet="DonHangs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DonHang_VanChuyen" Association="Self.FK_DonHang_VanChuyen">
+      <End Role="VanChuyen" EntitySet="VanChuyens" />
+      <End Role="DonHang" EntitySet="DonHangs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Xe_LoaiHopSo" Association="Self.FK_Xe_LoaiHopSo">
+      <End Role="LoaiHopSo" EntitySet="LoaiHopSoes" />
+      <End Role="Xe" EntitySet="Xes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Xe_LoaiXe" Association="Self.FK_Xe_LoaiXe">
+      <End Role="LoaiXe" EntitySet="LoaiXes" />
+      <End Role="Xe" EntitySet="Xes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Logs_User" Association="Self.FK_Logs_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Logs" EntitySet="Logs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Xe_Mau" Association="Self.FK_Xe_Mau">
+      <End Role="Mau" EntitySet="Maus" />
+      <End Role="Xe" EntitySet="Xes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NoiDung_TinNhan" Association="Self.FK_NoiDung_TinNhan">
+      <End Role="TinNhan" EntitySet="TinNhans" />
+      <End Role="NoiDung" EntitySet="NoiDungs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Quyen" Association="Self.FK_User_Quyen">
+      <End Role="Quyen" EntitySet="Quyens" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Xe_ThuongHieu" Association="Self.FK_Xe_ThuongHieu">
+      <End Role="ThuongHieu" EntitySet="ThuongHieux" />
+      <End Role="Xe" EntitySet="Xes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Xe_XuatXu" Association="Self.FK_Xe_XuatXu">
+      <End Role="XuatXu" EntitySet="XuatXus" />
+      <End Role="Xe" EntitySet="Xes" />
+    </AssociationSet>
+    <EntitySet Name="Counters" EntityType="BanOtoModel.Counter" />
+    <EntitySet Name="Slides" EntityType="BanOtoModel.Slide" />
+  </EntityContainer>
+  <EntityType Name="Counter">
+    <Key>
+      <PropertyRef Name="STT" />
+    </Key>
+    <Property Name="STT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IPAdress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Slide">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Tilte" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Anh" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+  </EntityType>
+</Schema>

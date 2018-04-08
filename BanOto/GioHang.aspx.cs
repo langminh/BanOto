@@ -125,7 +125,7 @@ namespace BanOto
                     h.SoLuongMua = quanti;
                     items.Add(h);
                     Session[CommonContanst.CART_SESSION] = items;
-
+                    Session[CommonContanst.CART_HISTORY] = items;
                     listCungLoai.DataSource = db.Xes.Where(x => x.MaLoaiXe == xe.MaLoaiXe).Take(4).ToList();
                     listCungLoai.DataBind();
                 }
@@ -218,6 +218,14 @@ namespace BanOto
         {
             Session[CommonContanst.PHI_VC] = drVC.SelectedValue.ToString();
             Response.Redirect("ThanhToan.aspx");
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtSearch.Text.Trim()))
+            {
+                Response.Redirect("TimKiem.aspx?tenxe=" + txtSearch.Text);
+            }
         }
     }
 }

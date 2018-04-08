@@ -42,7 +42,7 @@
                     <div class="single-sidebar">
                         <h2 class="sidebar-title">Tìm xe</h2>
                         <asp:TextBox runat="server" ID="txtSearch" TextMode="SingleLine" placeholder="Tìm xe..." />
-                        <asp:Button runat="server" ID="btnSearch" Text="Tìm kiếm" />
+                        <asp:Button runat="server" ID="btnSearch" OnClick="btnSearch_Click" Text="Tìm kiếm" />
                     </div>
 
                     <div class="single-sidebar">
