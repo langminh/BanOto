@@ -119,7 +119,7 @@
                                             </td>
 
                                             <td class="product-thumbnail">
-                                                <a href="single-product.html">
+                                                <a href="ChiTiet.aspx?id=<%# Eval("MaXe") %>">
                                                     <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="../Images/Cars/<%# Eval("Anh") %>" /></a>
                                             </td>
 
